@@ -14,6 +14,7 @@ else {
 }
 
 bot.onText(/\/start/, (msg) => {
+  if(err) console.log('Try Favorite - ', err.message);
   const chatId = msg.chat.id;
   bot.sendMessage(chatId, 'Received your message');
 });
