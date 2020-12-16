@@ -2,6 +2,7 @@ let express = require('express');
 let packageInfo = require('./package.json');
 
 let app = express();
+app.use(bodyParser.json());
 
 app.get('/', function (req, res) {
   res.json({ version: packageInfo.version });
