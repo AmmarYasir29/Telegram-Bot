@@ -1,4 +1,5 @@
 let express = require('express');
+const bodyParser = require('body-parser');
 let packageInfo = require('./package.json');
 
 let app = express();
