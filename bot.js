@@ -13,13 +13,6 @@ else {
   bot = new Bot(token, { polling: true });
 }
 
-
-bot.onText(/\/echo (.+)/, (msg, match) => {
-  const chatId = msg.chat.id;
-  const resp = match[1]; 
-  bot.sendMessage(chatId, resp);
-});
-
 bot.onText(/\/start/, (msg) => {
   const chatId = msg.chat.id;
   bot.sendMessage(chatId, 'Received your message');
