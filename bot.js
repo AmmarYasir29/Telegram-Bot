@@ -21,9 +21,9 @@ bot.onText(/\/start/, (msg) => {
 bot.onText(/\/v (.+)/, async (msg, match) => {
   const chatId = msg.chat.id;
   const url = match[1]; 
-  const video = ytdl(url, {
-    quality: "lowestvideo",
-  });
+
+  const video = ytdl(url, {quality: "lowest", filter: format => format.hasVideo && format.hasAudio});
+
   video.pipe(fs.createWriteStream("video.mp4"));
   bot.sendMessage(
     msg.chat.id,
