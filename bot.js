@@ -116,14 +116,19 @@ bot.onText(/\/i (.+)/, async (msg, match) => {
     "Please wait while download- depend on speed of net",
     { replyToMessage: msg.message_id }
   );
-  save(url, `${__dirname}`)
-    .then((res) => {
-      let x = res.file;
-      bot
-        .sendVideo(msg.chat.id, x, { replyToMessage: msg.message_id })
-        .catch((error) => console.log(error));
-    })
+  let video = save(url, `${__dirname}`);
+  let x = video.file;
+  bot
+    .sendVideo(msg.chat.id, x, { replyToMessage: msg.message_id })
     .catch((error) => console.log(error));
+  // save(url, `${__dirname}`)
+  //   .then((res) => {
+  //     let x = res.file;
+  //     bot
+  //       .sendVideo(msg.chat.id, x, { replyToMessage: msg.message_id })
+  //       .catch((error) => console.log(error));
+  //   })
+  //   .catch((error) => console.log(error));
 });
 
 bot.onText(/\/f (.+)/, async (msg, match) => {
