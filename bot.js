@@ -18,7 +18,14 @@ if (process.env.NODE_ENV === "production") {
 
 bot.onText(/\/start/, (msg) => {
   const chatId = msg.chat.id;
-  bot.sendMessage(chatId, "Welcome to best downloader EVER 🔥");
+  bot.sendMessage(
+    chatId,
+    `Welcome to best downloader EVER 🔥 
+  send /v with URL to download YOUTUBE video
+  send /a with URL to download YOUTUBE audio
+  send /f with URL to download FACEBOOK video
+  `
+  );
 });
 
 bot.onText(/\/v (.+)/, async (msg, match) => {
@@ -110,32 +117,32 @@ bot.onText(/\/a (.+)/, async (msg, match) => {
 //     });
 //     return;
 //   }
-  //FIXME: didnt work inside server
-  // bot.sendMessage(
-  //   msg.chat.id,
-  //   "Please wait while download- depend on speed of net",
-  //   { replyToMessage: msg.message_id }
-  // );
-  // save(url, `${__dirname}`)
-    // .then((res) => {
-      // let x = res.file;
-      // if (x.includes("mp4"))
-      
-      // bot
-      //   .sendVideo(msg.chat.id, x, { replyToMessage: msg.message_id })
-      //   .catch((error) => console.log(error));
-        // else if (
-      //   x.includes("jpg") ||
-      //   x.includes("jpeg") ||
-      //   x.includes("png") ||
-      //   x.includes("gif")
-      // )
-      //   await bot
-      //     .sendPhoto(msg.chat.id, x, { replyToMessage: msg.message_id })
-      //     .catch((error) => console.log(error));
-      // fs.unlink(x, (error) => console.log("Error", error));
-    // })
-    // .catch((error) => console.log(error));
+//FIXME: didnt work inside server
+// bot.sendMessage(
+//   msg.chat.id,
+//   "Please wait while download- depend on speed of net",
+//   { replyToMessage: msg.message_id }
+// );
+// save(url, `${__dirname}`)
+// .then((res) => {
+// let x = res.file;
+// if (x.includes("mp4"))
+
+// bot
+//   .sendVideo(msg.chat.id, x, { replyToMessage: msg.message_id })
+//   .catch((error) => console.log(error));
+// else if (
+//   x.includes("jpg") ||
+//   x.includes("jpeg") ||
+//   x.includes("png") ||
+//   x.includes("gif")
+// )
+//   await bot
+//     .sendPhoto(msg.chat.id, x, { replyToMessage: msg.message_id })
+//     .catch((error) => console.log(error));
+// fs.unlink(x, (error) => console.log("Error", error));
+// })
+// .catch((error) => console.log(error));
 // });
 
 bot.onText(/\/f (.+)/, async (msg, match) => {
@@ -167,4 +174,5 @@ bot.onText(/\/f (.+)/, async (msg, match) => {
       replyToMessage: msg.message_id,
     });
 });
+
 module.exports = bot;
