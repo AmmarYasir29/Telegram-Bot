@@ -101,35 +101,42 @@ bot.onText(/\/a (.+)/, async (msg, match) => {
 });
 
 //TODO:  add profile img to download --> const ipp = require("instagram-profile-picture");
-bot.onText(/\/i (.+)/, async (msg, match) => {
-  const chatId = msg.chat.id;
-  const url = match[1];
-  if (!isUrl(url) || !url.includes("instagram")) {
-    bot.sendMessage(msg.chat.id, "Please send INSTAGRAM video OR image 💥", {
-      replyToMessage: msg.message_id,
-    });
-    return;
-  }
+// bot.onText(/\/i (.+)/, async (msg, match) => {
+//   const chatId = msg.chat.id;
+//   const url = match[1];
+//   if (!isUrl(url) || !url.includes("instagram")) {
+//     bot.sendMessage(msg.chat.id, "Please send INSTAGRAM video OR image 💥", {
+//       replyToMessage: msg.message_id,
+//     });
+//     return;
+//   }
   //FIXME: didnt work inside server
-  bot.sendMessage(
-    msg.chat.id,
-    "Please wait while download- depend on speed of net",
-    { replyToMessage: msg.message_id }
-  );
-  let video = save(url, `${__dirname}`);
-  let x = video.file;
-  bot
-    .sendVideo(msg.chat.id, x, { replyToMessage: msg.message_id })
-    .catch((error) => console.log(error));
+  // bot.sendMessage(
+  //   msg.chat.id,
+  //   "Please wait while download- depend on speed of net",
+  //   { replyToMessage: msg.message_id }
+  // );
   // save(url, `${__dirname}`)
-  //   .then((res) => {
-  //     let x = res.file;
-  //     bot
-  //       .sendVideo(msg.chat.id, x, { replyToMessage: msg.message_id })
-  //       .catch((error) => console.log(error));
-  //   })
-  //   .catch((error) => console.log(error));
-});
+    // .then((res) => {
+      // let x = res.file;
+      // if (x.includes("mp4"))
+      
+      // bot
+      //   .sendVideo(msg.chat.id, x, { replyToMessage: msg.message_id })
+      //   .catch((error) => console.log(error));
+        // else if (
+      //   x.includes("jpg") ||
+      //   x.includes("jpeg") ||
+      //   x.includes("png") ||
+      //   x.includes("gif")
+      // )
+      //   await bot
+      //     .sendPhoto(msg.chat.id, x, { replyToMessage: msg.message_id })
+      //     .catch((error) => console.log(error));
+      // fs.unlink(x, (error) => console.log("Error", error));
+    // })
+    // .catch((error) => console.log(error));
+// });
 
 bot.onText(/\/f (.+)/, async (msg, match) => {
   const chatId = msg.chat.id;
