@@ -129,7 +129,7 @@ bot.onText(/\/i (.+)/, async (msg, match) => {
 bot.onText(/\/f (.+)/, async (msg, match) => {
   const chatId = msg.chat.id;
   const url = match[1];
-  if (!isUrl(url) || !url.includes("facebook")) {
+  if (isUrl(url) || url.includes("facebook")) {
     facebookdownload.getInfo(url).then((info) => {
       let name = info.title;
       let urlVideo = info.download.sd;
