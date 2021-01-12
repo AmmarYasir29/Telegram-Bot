@@ -117,22 +117,11 @@ bot.onText(/\/i (.+)/, async (msg, match) => {
     { replyToMessage: msg.message_id }
   );
   save(url, `${__dirname}`)
-    .then(async (res) => {
+    .then((res) => {
       let x = res.file;
-      // if (x.includes("mp4"))
-      await bot
+      bot
         .sendVideo(msg.chat.id, x, { replyToMessage: msg.message_id })
         .catch((error) => console.log(error));
-      // else if (
-      //   x.includes("jpg") ||
-      //   x.includes("jpeg") ||
-      //   x.includes("png") ||
-      //   x.includes("gif")
-      // )
-      //   await bot
-      //     .sendPhoto(msg.chat.id, x, { replyToMessage: msg.message_id })
-      //     .catch((error) => console.log(error));
-      // fs.unlink(x, (error) => console.log("Error", error));
     })
     .catch((error) => console.log(error));
 });
@@ -140,7 +129,7 @@ bot.onText(/\/i (.+)/, async (msg, match) => {
 bot.onText(/\/f (.+)/, async (msg, match) => {
   const chatId = msg.chat.id;
   const url = match[1];
-  if (isUrl(url) || url.includes("facebook")) {
+  if (!isUrl(url) || !url.includes("facebook")) {
     facebookdownload.getInfo(url).then((info) => {
       let name = info.title;
       let urlVideo = info.download.sd;
