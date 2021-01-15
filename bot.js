@@ -16,6 +16,20 @@ if (process.env.NODE_ENV === "production") {
   bot = new Bot(token, { polling: true });
 }
 
+bot.on("message", (msg) => {
+  let text = msg.text.toString().toLowerCase();
+  if (
+    !text.includes("/start") ||
+    !text.includes("/a") ||
+    !text.includes("/v") ||
+    !text.includes("/f") ||
+    !text.includes("/i")
+  )
+    bot.sendMessage(
+      msg.chat.id,
+      "Hello dear user send any valid command and download your video 🍂"
+    );
+});
 bot.onText(/\/start/, (msg) => {
   const chatId = msg.chat.id;
   bot.sendMessage(
@@ -108,42 +122,45 @@ bot.onText(/\/a (.+)/, async (msg, match) => {
 });
 
 //TODO:  add profile img to download --> const ipp = require("instagram-profile-picture");
-// bot.onText(/\/i (.+)/, async (msg, match) => {
-//   const chatId = msg.chat.id;
-//   const url = match[1];
-//   if (!isUrl(url) || !url.includes("instagram")) {
-//     bot.sendMessage(msg.chat.id, "Please send INSTAGRAM video OR image 💥", {
-//       replyToMessage: msg.message_id,
-//     });
-//     return;
-//   }
-//FIXME: didnt work inside server
-// bot.sendMessage(
-//   msg.chat.id,
-//   "Please wait while download- depend on speed of net",
-//   { replyToMessage: msg.message_id }
-// );
-// save(url, `${__dirname}`)
-// .then((res) => {
-// let x = res.file;
-// if (x.includes("mp4"))
-
-// bot
-//   .sendVideo(msg.chat.id, x, { replyToMessage: msg.message_id })
-//   .catch((error) => console.log(error));
-// else if (
-//   x.includes("jpg") ||
-//   x.includes("jpeg") ||
-//   x.includes("png") ||
-//   x.includes("gif")
-// )
-//   await bot
-//     .sendPhoto(msg.chat.id, x, { replyToMessage: msg.message_id })
-//     .catch((error) => console.log(error));
-// fs.unlink(x, (error) => console.log("Error", error));
-// })
-// .catch((error) => console.log(error));
-// });
+bot.onText(/\/i (.+)/, async (msg, match) => {
+  const chatId = msg.chat.id;
+  const url = match[1];
+  if (!isUrl(url) || !url.includes("instagram")) {
+    bot.sendMessage(msg.chat.id, "Please send INSTAGRAM video OR image 💥", {
+      replyToMessage: msg.message_id,
+    });
+    return;
+  }
+  //FIXME: didnt work inside server
+  bot.sendMessage(
+    msg.chat.id,
+    "Please wait while download- depend on speed of net",
+    { replyToMessage: msg.message_id }
+  );
+  try {
+    save(url, `${__dirname}`)
+      .then(async (res) => {
+        let x = res.file;
+        if (x.includes("mp4"))
+          await bot
+            .sendVideo(msg.chat.id, x, { replyToMessage: msg.message_id })
+            .catch((error) => console.log(error));
+        else if (
+          x.includes("jpg") ||
+          x.includes("jpeg") ||
+          x.includes("png") ||
+          x.includes("gif")
+        )
+          await bot
+            .sendPhoto(msg.chat.id, x, { replyToMessage: msg.message_id })
+            .catch((error) => console.log(error));
+        // fs.unlink(x, (error) => console.log("Error", error));
+      })
+      .catch((error) => console.log(error));
+  } catch (error) {
+    console.log(error);
+  }
+});
 
 bot.onText(/\/f (.+)/, async (msg, match) => {
   const chatId = msg.chat.id;
